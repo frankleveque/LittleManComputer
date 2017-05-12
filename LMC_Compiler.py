@@ -10,7 +10,7 @@
 
 901 INP - INPUT
 902 OUT - OUTPUT
-000 HLT - HALT/COFFEE
+000 HLT/HCF - HALT/COFFEE
 
 DAT - DATA
 
@@ -38,6 +38,7 @@ opCodes['output'] = 902
 opCodes['out'] = 902
 opCodes['halt'] = 000
 opCodes['hlt'] = 000
+opCodes['hcf'] = 000
 opCodes['coffee'] = 000
 opCodes['coffeebreak'] = 000
 opCodes['data'] = None
