@@ -159,16 +159,17 @@ def remove_comments(instructions):
     r = row.find("#")
     s = row.find("//")
 
-    lowest = r if r < s and r > -1 and r else s
+    lowest = -1
+    if r < s and r > -1:
+        lowest = r
+    elif s < r and s > -1:
+        lowest = s
+
     if lowest != -1:
         temp += row[:lowest]
     else:
         temp += row
-
     return temp
-
-
-
 
 
 if __name__ == "__main__":
@@ -189,7 +190,6 @@ if __name__ == "__main__":
                 data = data.split() 
                 instructions += [data]
                 data = f.readline()
-
 
         instructions = fix_instructions(instructions)
 
