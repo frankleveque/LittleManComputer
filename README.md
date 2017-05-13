@@ -26,7 +26,7 @@ Make the simulator with:
 
 "Compile" lmc scripts with:
 
-``` python3 LMC_Compiler.py <script file(s)>``` 
+``` python3 LMC_Compiler.py <script file(s).lm>``` 
 
 
 
