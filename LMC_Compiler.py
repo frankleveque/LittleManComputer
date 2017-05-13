@@ -91,7 +91,7 @@ def process_labels(instructions):
     for i in range(len(instructions)):
         assert len(instructions[i]) == 3
         if instructions[i][0]:
-            print("Label added: ", repr(instructions[i][0]), i)
+            print("Label added: " + repr(instructions[i][0]), i)
             labels[instructions[i][0]] = i
 
 
@@ -158,11 +158,9 @@ def remove_comments(instructions):
 
     r = row.find("#")
     s = row.find("//")
-
+    assert(r == -1)
     lowest = -1
-    if r < s and r > -1:
-        lowest = r
-    elif s < r and s > -1:
+    if (s > -1):
         lowest = s
 
     if lowest != -1:
@@ -200,7 +198,7 @@ if __name__ == "__main__":
 
         assert len(memory) == 100
   
-        with open(file + '.lmc', 'w+') as out:
+        with open(file + '.compiled', 'w+') as out:
             for line in memory:
                 out.write(str(line) + '\n')
 
