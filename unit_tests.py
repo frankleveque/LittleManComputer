@@ -16,7 +16,7 @@
 """
 
 import unittest
-import LMC_Compiler as lc
+import lmc_compiler as lc
 
 
 class Test(unittest.TestCase):
