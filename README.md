@@ -6,9 +6,9 @@ https://en.wikipedia.org/wiki/Little_man_computer
 
 ---
 
-`lmc.cpp` the simulator in c++
+`lmc_simulator.cpp` the simulator in c++
 
-`LMC_Compiler.py` "compiles" LMC assembly to the format the simulator takes
+`lmc_compiler.py` "compiles" LMC assembly to the format the simulator takes
 
 `unit_tests.py` unit tests
 
