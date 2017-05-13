@@ -23,7 +23,7 @@ The simulator will only run one file at a time, ignoring the rest.
 
 Make the simulator with:
 
-``` g++ -std=c++11 lmc.cpp -o lmc_simulator.exe ```
+``` g++ -std=c++11 lmc_simulator.cpp -o lmc_simulator.exe ```
 
 "Compile" lmc scripts with:
 
