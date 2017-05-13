@@ -21,7 +21,7 @@ void dies(int inside){
 int main(int argc, char* argv[]) 
 {
     if(argc < 2){
-        std::cout << prefix << " needs instructions. Pass in a \"compiled\" instruction file as argument.";
+        std::cout << prefix << " needs instructions. Pass in a \"compiled\" instruction file as argument." << std::endl;
         return EXIT_FAILURE;
     } else if(argc >= 2){
         std::cout << "reading " << argv[1] << std::endl;
@@ -64,7 +64,6 @@ int main(int argc, char* argv[])
     int inside = mailboxes[programCounter];
     while(true){
 
-        std::cout << std::endl;
         int address = inside % 100;
 
 //INPUT/OUTPUT---------------------------------------------------------------------------------------------
