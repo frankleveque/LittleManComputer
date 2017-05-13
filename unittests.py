@@ -1,7 +1,7 @@
 
 
 import unittest
-import lmc_compiler as lc
+import LMC_Compiler as lc
 
 opCodes = {}
 opCodes['add'] = 100
@@ -32,6 +32,17 @@ labels = {}
 
 
 class Test(unittest.TestCase):
+    def test_lowercase(self):
+        ins = ["HLT", 132123, "324234", "ASDF", "423423BRZ", ["hLt", 99, "TEST"]]
+        ins_lower = ["hlt", "132123", "324234", "asdf", "423423brz", ["hlt", "99", "test"]]
+        self.assertEqual(lc.convert_to_lowercase("ABCD"), "abcd")
+        self.assertEqual(lc.convert_to_lowercase(ins), ins_lower)
+        self.assertEqual(lc.convert_to_lowercase([1234]), ["1234"])
+        self.assertEqual(lc.convert_to_lowercase(["12ASDF34"]), ["12asdf34"])
+        self.assertEqual(lc.convert_to_lowercase([]), [])
+        self.assertEqual(lc.convert_to_lowercase([[],[],['HLT']]), [[],[],['hlt']])
+        self.assertEqual(lc.convert_to_lowercase(999),"999")
+        self.assertEqual(lc.convert_to_lowercase("999"),"999")
 
     def test_fix(self):
         self.assertEqual(lc.fixInstructions([["HLT"]]), [[None,"hlt","0"]])

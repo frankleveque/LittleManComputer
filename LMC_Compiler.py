@@ -1,4 +1,3 @@
-
 '''
 1 ADD - ADD
 2 SUB - SUBTRACT
@@ -44,10 +43,21 @@ opCodes['coffeebreak'] = 000
 opCodes['data'] = None
 opCodes['dat'] = None
 
-memory = ["0"] * 100
+memory = ["000"] * 100
 labels = {}
 
- 
+def convert_to_lowercase(instructions):
+    if isinstance(instructions, str) or isinstance(instructions, int):
+        instructions = str(instructions).lower()
+    else:
+        for i in range(len(instructions)):
+            if isinstance(instructions[i], str) or isinstance(instructions[i], int):
+                instructions[i] = str(instructions[i]).lower()
+            else:
+                for j in range(len(instructions[i])):
+                        instructions[i][j] = str(instructions[i][j]).lower()
+    return instructions
+
 
 def fixInstructions(instructions):
 
@@ -55,10 +65,6 @@ def fixInstructions(instructions):
         return
     initial = len(instructions)
 
-    # lowercase all
-    for i in range(len(instructions)):
-        for j in range(len(instructions[i])):
-            instructions[i][j] = instructions[i][j].lower()
 
     # massage inputs
     for i in range(len(instructions)):
@@ -82,7 +88,22 @@ def fixInstructions(instructions):
 
 
 def stripLabels(instructions):
-   
+  
+    
+    for i in range(len(instructions)):
+        assert len(instructions[i]) == 3
+
+        # first is label or none
+        first = instructions[i][0]
+        if first and first not in labels:
+            print("Label " + first + " added")
+            labels[first] = str(i)
+            instructions[i][1] = str(i) 
+        elif first and first in labels:
+            print("WARNING: " + first + " already defined - ignoring")
+
+
+
     # strip definitions 
     for i in range(len(instructions)):
         assert len(instructions[i]) == 3
@@ -94,18 +115,17 @@ def stripLabels(instructions):
             if first not in labels.keys():
                 labels[instructions[i][0]] = str(i)
             else:
-                print "Warning: Label [" + first + "] already defined"
+                print("Warning: Label " + first + " already defined")
         
                     
         # remove first index
         instructions[i] = instructions[i][1:]
-
         assert len(instructions[i]) == 2
 
-        # 2 elements - second is label
+
         second = instructions[i][1]
         if second.isalpha() and second not in labels:
-            print "Warning: Label [" + second + "] not defined anywhere - using mailbox 99"
+            print("Warning: Label " + second + " not defined anywhere - using mailbox 99")
             labels[second] = "99"
             instructions[i][1] = "99" 
   
@@ -118,7 +138,8 @@ def stripLabels(instructions):
                         instructions[i][j] = labels[instructions[i][j]]
 
                 except KeyError:
-                    print "label [" + str(instructions[i][j]) + "]" + " not defined"
+                    if instructions[i][j] is not None:
+                        print("label " + str(instructions[i][j]) + "" + " not defined")
    
         
 
@@ -139,7 +160,7 @@ def compileInstruction(instruction):
     try:
         assert instruction[0].isalpha() 
     except AssertionError:
-        print "+++++++++++",instruction[0],"+++++++++++"
+        print("+++++++++++",instruction[0],"+++++++++++")
 
     
     op = None
@@ -163,7 +184,7 @@ def compileInstruction(instruction):
             return opcode + int(box)
            
     except KeyError:
-           print "Warning: Opcode not defined " + str(op) + " - returning HLT"
+           print("Warning: Opcode not defined " + str(op) + " - returning HLT")
            return 0
  
 
@@ -174,11 +195,10 @@ if __name__ == "__main__":
     
 
     if len(sys.argv) < 2:
-        print "Needs input file(s)"
+        print("Needs input file(s)")
         sys.exit(0)
 
     for a in sys.argv[1:]:
-        
 
         instructions = [] 
         with open(a) as f:
@@ -192,17 +212,17 @@ if __name__ == "__main__":
                 data = f.readline()
 
 
-
+        instructions = convert_to_lowercase(instructions)
         instructions = fixInstructions(instructions)
+
+        print("Instructions: ")
+        for a in range(len(instructions)):
+            for b in range(len(instructions[a])):
+                print(instructions[a][b], end="|")
+            print("")
+        print("")
         instructions = stripLabels(instructions)
-        print "Compiled:"
-        for p in instructions:
-            for j in p:
-                print j,
-            print ""
-        print ""
-        
-        
+      
         
         for i in range(len(instructions)):
             memory[i] = "%.03i" % compileInstruction(instructions[i])
@@ -215,8 +235,6 @@ if __name__ == "__main__":
         with open(a+'.lmc', 'w+') as out:
             for line in memory:
                 out.write(str(line) + '\n')
-
-
 
 else:
     pass
