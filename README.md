@@ -10,7 +10,7 @@ https://en.wikipedia.org/wiki/Little_man_computer
 
 `LMC_Compiler.py` "compiles" LMC assembly to the format the simulator takes
 
-`unittest.py` unit tests
+`unit_tests.py` unit tests
 
 `example_scripts` contains some scripts you can compile
 
