@@ -4,6 +4,9 @@ LittleManComputer
 This project implements a Little Man Computer simulation
 https://en.wikipedia.org/wiki/Little_man_computer
 
+Note: Mailboxes can hold values greater than 3 digits. The script that squares
+numbers up to 999 now works without overflow. 
+
 ---
 
 `lmc_simulator.cpp` the simulator in c++

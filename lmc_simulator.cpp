@@ -23,17 +23,10 @@
 
 std::string prefix = "The little man";
 
-
-enum class LMStates{
-    Start,
-
-};
-
 void dies(int inside){
     printf("%.3u - %s %s.\n",inside,prefix.c_str(),"doesn't know what to do with this");
     printf("      %s %s.\n",prefix.c_str(), "dies from stress");
 }
-
 
 int main(int argc, char* argv[]) 
 {
@@ -54,11 +47,9 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     } 
 
-
-    LMStates lState = LMStates::Start;
     uint32_t accumulator = 0;
     uint8_t programCounter = 0;
-    uint16_t mailboxes[100];
+    uint32_t mailboxes[100];
 
     std::string str; 
     int counter = 0;
@@ -171,16 +162,10 @@ int main(int argc, char* argv[])
             dies(inside); 
             break;    
         }
-
 //---------------------------------------------------------------------------------------------------------
         inside = mailboxes[++programCounter];
-
-
     }
 
     printf("      %s \n","Program Halted");
-
     return 0;
-
-
 }
